@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-1.12.4.js"></script>
+    <style>
+        .box {
+            position: relative;
+            width: 330px;
+            height: 500px;
+            background: url('01.jpg');
+            background-size: 330px 500px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        .top_num {
+            position: absolute;
+            top: 5px;
+            left: 10px;
+        }
+        .i_right {
+            width: 30px;
+            height: 1px;
+            background-color: #fff;
+            display: inline-block;
+        }
+        .i_left {
+            width: 0;
+            height: 1px;
+            background-color: #fff;
+            display: inline-block;
+        }
+        span {
+            color: #fff;
+
+        }
+        .address  {
+            position: absolute;
+            color: #fff;
+            font-size: 25px;
+            left: 10px;
+            bottom: 100px;
+        }
+        .DC  {
+            position: absolute;
+            color: #fff;
+            font-size: 35px;
+            left: 10px;
+            bottom: 30px;
+        }
+        .go {
+            position: absolute;
+            left: 10px;
+            bottom: -25px;
+            color: #fff;
+            width: 80px;
+            height: 25px;
+            background-color: skyblue;
+            text-align: center;
+            opacity:.8;
+            text-decoration:none;
+        }
+        .go:hover {
+            opacity:1;
+        }
+        .mask {
+            width: 100%;
+            height:100%;
+            opacity: .2;
+            z-index: 999;
+            opacity: 0;
+            background: -webkit-linear-gradient(top, rgba(255,0,0,0), rgba(109,109,109,1)); 
+            background: -o-linear-gradient(top, rgba(255,0,0,0), rgba(109,109,109,1)); 
+            background: -moz-linear-gradient(top, rgba(255,0,0,0), rgba(109,109,109,1)); 
+            background: linear-gradient(to bottom, rgba(255,0,0,0), rgba(109,109,109,1));
+        }
+    </style>
+    <script>
+        //需求 :  1.
+        $(function () {
+            $('.box').on('mouseenter',function () {
+                // i_left变长,i_right变短 ,01 位置改变
+                $('.box .i_left').stop(true,false).animate({
+                    width:30
+                },300);
+                $('.box .i_right').stop(true,false).animate({
+                    width:0
+                },300);
+                $('.box span').stop(true,false).animate({
+                    left:40
+                },300);
+                //  地点和稻城上浮  并显示 前往
+                $('.address').stop(true,false).animate({
+                    bottom:150
+                },300);
+                $('.DC').stop(true,false).animate({
+                    bottom:80
+                },300);
+                $('.go').stop(true,false).animate({
+                    bottom:50
+                },300);
+                $('.mask').stop(true,false).animate({
+                    opacity:0.4
+                },300);
+            });
+            //鼠标移出事件
+            $('.box').on('mouseleave',function () {
+                // i_left变长,i_right变短 ,01 位置改变
+                $('.box .i_left').stop(true,false).animate({
+                    width:0
+                },300);
+                $('.box .i_right').stop(true,false).animate({
+                    width:30
+                },300);
+                $('.box span').stop(true,false).animate({
+                    left:10
+                },300);
+                //  地点和稻城上浮  并显示 前往
+                $('.address').stop(true,false).animate({
+                    bottom:100
+                },300);
+                $('.DC').stop(true,false).animate({
+                    bottom:50
+                },300);
+                $('.go').stop(true,false).animate({
+                    bottom:-25
+                },300);
+                $('.mask').stop(true,false).animate({
+                    opacity:0
+                },300);
+            })
+        })
+    </script>
+</head>
+<body>
+    <div class="box">
+        <div class="mask"></div>
+        <div class="top_num">
+            <i class="i_left"></i>
+            <span>01</span>
+            <i class="i_right"></i>
+        </div>
+        <p class="address">地点</p>
+        <p class="DC">稻城.亚丁</p>
+        <a href="#" class="go">前往>></a>
+    </div>
+</body>
+</html>
