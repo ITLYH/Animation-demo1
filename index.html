@@ -452,7 +452,9 @@
 				}
 			})
 			$('#attach').blur(function () {
-				$(".wrap").css("scrollTop", "0px");
+				setTimeout(function(){
+					$(".wrap").css("scrollTop", "0px");
+				})
 			})
 		});
 		function doSubmit() {
