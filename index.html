@@ -1,149 +1,507 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="jquery-1.12.4.js"></script>
-    <style>
-        .box {
-            position: relative;
-            width: 330px;
-            height: 500px;
-            background: url('01.jpg');
-            background-size: 330px 500px;
-            margin: 0 auto;
-            overflow: hidden;
-        }
-        .top_num {
-            position: absolute;
-            top: 5px;
-            left: 10px;
-        }
-        .i_right {
-            width: 30px;
-            height: 1px;
-            background-color: #fff;
-            display: inline-block;
-        }
-        .i_left {
-            width: 0;
-            height: 1px;
-            background-color: #fff;
-            display: inline-block;
-        }
-        span {
-            color: #fff;
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!-- 控制浏览器缓存 -->
+		<meta http-equiv="Cache-Control" content="no-store" />
+		<!-- 优先使用 IE 最新版本和 Chrome -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<!-- 页面描述 -->
+		<meta name="description" content="不超过150个字符" />
+		<!-- 页面关键词 -->
+		<meta name="keywords" content="" />
+		<title>向商户付款</title>
 
-        }
-        .address  {
-            position: absolute;
-            color: #fff;
-            font-size: 25px;
-            left: 10px;
-            bottom: 100px;
-        }
-        .DC  {
-            position: absolute;
-            color: #fff;
-            font-size: 35px;
-            left: 10px;
-            bottom: 30px;
-        }
-        .go {
-            position: absolute;
-            left: 10px;
-            bottom: -25px;
-            color: #fff;
-            width: 80px;
-            height: 25px;
-            background-color: skyblue;
-            text-align: center;
-            opacity:.8;
-            text-decoration:none;
-        }
-        .go:hover {
-            opacity:1;
-        }
-        .mask {
-            width: 100%;
-            height:100%;
-            opacity: .2;
-            z-index: 999;
-            opacity: 0;
-            background: -webkit-linear-gradient(top, rgba(255,0,0,0), rgba(109,109,109,1)); 
-            background: -o-linear-gradient(top, rgba(255,0,0,0), rgba(109,109,109,1)); 
-            background: -moz-linear-gradient(top, rgba(255,0,0,0), rgba(109,109,109,1)); 
-            background: linear-gradient(to bottom, rgba(255,0,0,0), rgba(109,109,109,1));
-        }
-    </style>
-    <script>
-        //需求 :  1.
-        $(function () {
-            $('.box').on('mouseenter',function () {
-                // i_left变长,i_right变短 ,01 位置改变
-                $('.box .i_left').stop(true,false).animate({
-                    width:30
-                },300);
-                $('.box .i_right').stop(true,false).animate({
-                    width:0
-                },300);
-                $('.box span').stop(true,false).animate({
-                    left:40
-                },300);
-                //  地点和稻城上浮  并显示 前往
-                $('.address').stop(true,false).animate({
-                    bottom:150
-                },300);
-                $('.DC').stop(true,false).animate({
-                    bottom:80
-                },300);
-                $('.go').stop(true,false).animate({
-                    bottom:50
-                },300);
-                $('.mask').stop(true,false).animate({
-                    opacity:0.4
-                },300);
-            });
-            //鼠标移出事件
-            $('.box').on('mouseleave',function () {
-                // i_left变长,i_right变短 ,01 位置改变
-                $('.box .i_left').stop(true,false).animate({
-                    width:0
-                },300);
-                $('.box .i_right').stop(true,false).animate({
-                    width:30
-                },300);
-                $('.box span').stop(true,false).animate({
-                    left:10
-                },300);
-                //  地点和稻城上浮  并显示 前往
-                $('.address').stop(true,false).animate({
-                    bottom:100
-                },300);
-                $('.DC').stop(true,false).animate({
-                    bottom:50
-                },300);
-                $('.go').stop(true,false).animate({
-                    bottom:-25
-                },300);
-                $('.mask').stop(true,false).animate({
-                    opacity:0
-                },300);
-            })
-        })
-    </script>
-</head>
-<body>
-    <div class="box">
-        <div class="mask"></div>
-        <div class="top_num">
-            <i class="i_left"></i>
-            <span>01</span>
-            <i class="i_right"></i>
-        </div>
-        <p class="address">地点</p>
-        <p class="DC">稻城.亚丁</p>
-        <a href="#" class="go">前往>></a>
-    </div>
-</body>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			
+			html,
+			body {
+				height: 100%;
+				overflow: hidden;
+				font-family: Microsoft YaHei
+			}
+			.overHidden{overflow: hidden;height: 100%;}
+			.clearfix:after {
+				content: "\200B";
+				display: block;
+				height: 0;
+				clear: both;
+			}
+			
+			.clearfix {
+				*zoom: 1;
+			}
+			
+			
+			/*IE/7/6*/
+			
+			.shuru div::-webkit-scrollbar {
+				width: 0;
+				height: 0;
+				-webkit-transition: 1s;
+			}
+			
+			.shuru div::-webkit-scrollbar-thumb {
+				background-color: #a7afb4;
+				background-clip: padding-box;
+				min-height: 28px;
+			}
+			
+			.shuru div::-webkit-scrollbar-thumb:hover {
+				background-color: #525252;
+				background-clip: padding-box;
+				min-height: 28px;
+			}
+			
+			.shuru div::-webkit-scrollbar-track-piece {
+				background-color: #ccd0d2;
+			}
+			
+			.wrap {
+				position: relative;
+				margin: auto;
+				max-width: 640px;
+				min-width: 320px;
+				width: 100%;
+				height: 100%;
+				background: #F0EFF5;
+				overflow: hidden;
+			}
+			
+			.layer-content {
+				position: absolute;
+				left: 50%;
+				bottom: -224px;
+				width: 100%;
+				max-width: 640px;
+				height: auto;
+				z-index: 12;
+				-webkit-transform: translateX(-50%);
+				transform: translateX(-50%);
+			}
+			
+			/* 输入表单 */
+			.edit_cash_div{
+				padding: 15px 0 0 0;
+			}
+			.edit_cash {
+				display: block;
+				margin-top: 20px;
+				padding: 15px;
+				margin: 0 auto;
+				width: 90%;
+				/*border: 1px solid #CFCFCF;*/
+				border-radius: 10px;
+				background-color: #fff;
+			}
+			
+			.edit_cash p {
+				font-size: 14px;
+				color: #8D8D8F;
+			}
+			
+			.shuru {
+				position: relative;
+				margin-bottom: 10px;
+			}
+			
+			.shuru div {
+				border: none;
+				width: 100%;
+				height: 50px;
+				font-size: 25px;
+				line-height: 50px;
+				border-bottom: 1px solid #CFCFCF;
+				text-indent: 30px;
+				outline: none;
+				white-space: pre;
+				overflow-x: scroll;
+			}
+
+			.shuru span {
+				position: absolute;
+				top: 5px;
+				font-size: 25px;
+			}
+			.shuru .merName{
+				position: absolute;
+				top: 10px;
+				font-size: 15px;
+			}
+			.tip{
+				font-size: 12px;
+				color: #8D8D8F;
+				margin-top: 20px;
+				margin: 10 auto;
+				width: 90%;
+			}
+			.remarks{
+				font-size: 13px;
+				color: #8D8D8F;
+				text-decoration:none;
+				width: 100%;
+			}
+
+			.submit.active {
+
+				background: #3791e9;
+			}
+
+			.submit {
+				display: block;
+				width: 100%;
+				height: 100%;
+				font-size: 16px;
+				color: #fff;
+				background: #8bc9e9;
+			}
+
+			
+			
+			/* 键盘 */
+			.form_pay {
+				width: 25%;
+				background: #fff;
+				float: right;
+			}
+			.remove{
+				background-color: #DEE1E9;
+				height: 56px;
+				line-height: 56px;
+				text-align: center;
+			}
+			.pay-btn{
+				width: 100%;
+				height:168px;
+				line-height: 168px;
+			}
+			
+			.form_edit {
+				width: 75%;
+				background: #fff;
+				float: left;
+			}
+			
+			.form_edit> div {
+				/* margin-bottom: 1px; */
+				/* margin-right: 1px; */
+				float: left;
+				width: 33.33%;
+				height: 56px;
+				text-align: center;
+				color: #333;
+				line-height: 45px;
+				font-size: 18px;
+				font-weight: 600;
+				background-color: #fff;
+				/* border-radius: 5px; */
+				border-bottom: 0;
+				border-right: 0;
+				position: relative;
+			}
+			.form_edit> div::before{
+				content: '';
+				position: absolute;
+				bottom: 0;
+				height: 1px;
+				width: 100%;
+				background: #dfe2ea;
+				display: block;
+				z-index: 0;
+				transform: scaleY(0.5);
+				-webkit-transform: scaleY(0.5);
+				-webkit-transform-origin: 0 0;
+			}
+			.form_edit> div::after{
+				content: '';
+				position: absolute;
+				top:0;
+				right: 0;
+				height: 200%;
+				width: 1px;
+				background: #dfe2ea;
+				display: block;
+				z-index: 0;
+				transform: scaleX(0.5);
+				-webkit-transform: scaleX(0.5);
+				-webkit-transform-origin: 0 0;
+			}
+			
+			.form_edit> div:nth-child(3n)::after {
+				width:0;
+			}
+			.form_edit> div:nth-child(10)::before{
+				height: 0;
+			}
+			.form_edit> div:nth-child(10)::after{
+				width: 1px;
+			}
+			.form_edit> div:nth-child(10){
+				width: 66.66%;
+			}
+			.form_edit> div:last-child::before {
+				height: 0;
+			}
+			.form_edit> div:last-child::after {
+				width: 0;
+			}
+			input:-webkit-autofill,select:-webkit-autofill {
+				-webkit-box-shadow: 0 0 0px 1000px white  inset !important;
+			}
+
+
+			input{
+				outline-color: invert ;
+				outline-style: none ;
+				outline-width: 0px ;
+				border: none ;
+				border-style: none ;
+				text-shadow: none ;
+				-webkit-appearance: none ;
+				-webkit-user-select: text ;
+				outline-color: transparent ;
+				box-shadow: none;
+			}
+			.name{
+				background:url(../fres/images/syt.png)  no-repeat right 20px center;
+				background-size: 45px 39px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+				<div class="edit_cash_div">
+					<form id="form1" class="edit_cash">
+						<p>付款给<p>
+						<input type="hidden" name="merchantId" th:value="${merchantId}"/>
+						<input type="hidden" name="channel" th:value="${channel}"/>
+						<input type="hidden" name="openId" th:value="${openId}"/>
+						<div class="shuru">
+							<span th:text="${merchantName}" class="merName">深圳市XX实业有限公司</span>
+							<div id="name" class="name"></div>
+						</div>
+						<p>消费总额</p>
+						<div class="shuru">
+							<span>&yen;</span>
+							<div id="div"></div>
+
+						</div>
+						<input placeholder="付款备注" id="attach" class="remarks" name="description">
+						<input type="hidden" id="HAmount" name="amount">
+					</form>
+				</div>
+				<div class="tip">您即将向<span th:text="${merchantName}">深圳市XX实业有限公司</span>付款，为保证资金安全，请核对付款金额无误后再支付。</div>
+				<!--<input type="button" onclick="doSubmit();return false;" value="支付" class="submit" />-->
+
+		</div>
+		<div class="layer"></div>
+		<div class="form">
+			<form action="" method="post">
+				<input type="text" placeholder="姓名" />
+				<input type="text" placeholder="联系电话" />
+				<input type="button" onclick="doSubmit();return false;" value="提交" class="infor-sub" />
+			</form>
+		</div>
+		<div class="layer-content">
+			<div class="form_edit clearfix">
+				<div class="num">1</div>
+				<div class="num">2</div>
+				<div class="num">3</div>
+				<div class="num">4</div>
+				<div class="num">5</div>
+				<div class="num">6</div>
+				<div class="num">7</div>
+				<div class="num">8</div>
+				<div class="num">9</div>
+				<div class="num">0</div>
+				<div class="num">.</div>
+
+			</div>
+			<div class="form_pay">
+				<div id="remove" class="remove">删除</div>
+				<div class="pay-btn">
+					<input type="button" onclick="doSubmit();return false;" value="支付" class="submit" />
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="https://lib.baomitu.com/jquery/3.4.1/jquery.min.js"></script>
+		<script type="text/javascript" src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+		<script type="text/javascript" src="https://a.alipayobjects.com/g/h5-lib/alipayjsapi/3.0.6/alipayjsapi.min.js"></script>
+		<script src="../fres/js/pay/utilPay.js" type="text/javascript"></script>
+		<script>
+			$(function(){
+//                //备注
+//                $('.remarks').click(function(e){
+//                    $('.layer').show();
+//                    $('.form').show();
+//                })
+//				//填写信息
+//				$('.infor-sub').click(function(e){
+//					$('.layer').hide();
+//					$('.form').hide();
+//					e.preventDefault();		//阻止表单提交
+//				})
+//				 监听#div内容变化，改变支付按钮的颜色
+				$('#div').bind('DOMNodeInserted', function(){
+				    var value = $("#div").text();
+                    var lastValue = value.substring(value.length-1,value.length);
+					if(value !="" && lastValue !='.' && Number(value) > 0){
+                        $('.submit').addClass('active');
+						$('.submit').attr('disabled', false);
+					}else{
+                        $('.submit').removeClass('active');
+						$('.submit').attr('disabled', true);
+					}
+				})
+				$('#div').trigger('DOMNodeInserted');
+				
+				$('.shuru').click(function(e){
+					$('.layer-content').animate({
+						bottom: 0
+					}, 200)
+					e.stopPropagation();
+				})
+				$('.wrap').click(function(){
+					$('.layer-content').animate({
+						bottom: '-224px'
+					}, 200)
+				})
+				
+				$('.form_edit .num').click(function(){
+					var oDiv = document.getElementById("div");
+                    var thatHtml = this.innerHTML;
+
+                    var arr = oDiv.innerHTML.split(".");
+                    if (arr.length==2){
+                        if (thatHtml == '.'){
+                            return;
+						}
+                        if(arr[1].length > 1) {
+                            return;
+                        }
+					}
+
+                    if( oDiv.innerHTML.length == 0){
+                        if( thatHtml != '.') {
+                            oDiv.innerHTML += thatHtml;
+                        }
+					}else if(oDiv.innerHTML.length == 1 ){
+                        var t = oDiv.innerHTML;//第一位
+                        if(Number(t) == 0 && thatHtml != '.'){
+                            oDiv.innerHTML = thatHtml;
+						}else {
+                            oDiv.innerHTML += thatHtml;
+						}
+					}else{
+                        oDiv.innerHTML += thatHtml;
+					}
+
+				})
+				$('#remove').click(function(){
+					var oDiv = document.getElementById("div");
+					var oDivHtml = oDiv.innerHTML;
+					oDiv.innerHTML = oDivHtml.substring(0,oDivHtml.length-1);
+					if(oDiv.innerHTML == ""){
+                        $('.submit').removeClass('active');
+                        $('.submit').attr('disabled', true);
+					}
+				})
+			});
+            function doSubmit() {
+                //调用
+                $('#HAmount').val(Number($('#div').html()));
+                var form1 = document.getElementById('form1');
+                ajaxSubmit(form1, function(res) {
+                    if (res.code == '0000'){
+                        //调起微信支付
+                        if(window.navigator.userAgent.toLowerCase().match(/MicroMessenger/i) == 'micromessenger'){
+                            wxJsApiCall(res);
+                        }else{
+
+                        }
+					}else{
+                        window.location.href = "/payment/pay/scanError?errorMsg="+res.msg;
+					}
+                });
+            }
+            //将form转为AJAX提交
+            function ajaxSubmit(frm, fn) {
+                var dataPara = getFormJson(frm);
+                var reqMarId = $("#reqMarId").val();
+                $.ajax({
+                    url : "/payment/v3/qrPay",
+                    data : dataPara,
+                    type : frm.method,
+                    datatype:"JSON",
+                    success : fn,
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(XMLHttpRequest.status);
+                        alert(XMLHttpRequest.readyState);
+                        alert(textStatus);
+                    }
+                });
+            }
+            //将form中的值转换为键值对。
+            function getFormJson(frm) {
+                var o = {};
+                //var a = $('form1').serialize();
+                var a = $(frm).serializeArray();
+                $.each(a, function() {
+                    if (o[this.name] !== undefined) {
+                        if (!o[this.name].push) {
+                            o[this.name] = [ o[this.name] ];
+                        }
+                        o[this.name].push(this.value || '');
+                    } else {
+                        o[this.name] = this.value || '';
+                    }
+                });
+                return o;
+            }
+
+            function wxJsApiCall(payParam){
+//                window.location.href = "/payment/pay/scanSuccess?merchantId="+payParam.merchantId+"&orderNo="+payParam.orderNo;
+
+                utilPay.wxpay(payParam,function(res){
+					if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+						//支付成功
+						window.location.href = "/payment/pay/scanSuccess?merchantId="+payParam.merchantId+"&orderNo="+payParam.orderNo;
+					}
+					if(res.err_msg == "get_brand_wcpay_request:cancel" ) {
+						//支付取消 关闭微信窗口
+                        utilPay.weixinClosePage();
+					}
+					if(res.err_msg == "get_brand_wcpay_request:fail" ) {
+					   //支付失败
+						window.location.href = "/payment/pay/scanError";
+					}
+				});
+
+
+			}
+
+			//支付宝支付
+            function alipayJsApiCall(payParam){
+                utilPay.alipayApp(payParam,function(res){
+                    if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+							//支付成功
+						window.location.href = "/payment/pay/scanSuccess?merchantId="+payParam.merchantId+"&orderNo="+payParam.orderNo;
+					}
+					if(res.err_msg == "get_brand_wcpay_request:cancel" ) {
+						//支付取消
+						weixinClosePage();
+					}
+					if(res.err_msg == "get_brand_wcpay_request:fail" ) {
+					   //支付失败
+						window.location.href = "/payment/pay/scanError";
+					}
+                })
+			}
+		</script>
+	</body>
 </html>
