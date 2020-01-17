@@ -452,8 +452,12 @@
 				}
 			})
 			$('#attach').blur(function () {
-				$(".wrap").scrollTop('0px');
-				alert('12222')
+				// $(".wrap").scrollTop('0px'); 
+				window.scrollTo(0, window.innerHeight);
+				setTimeout(() => {
+					window.scrollTo(0, window.innerHeight);
+				}, 100)
+				alert('3333')
 			})
 		});
 		function doSubmit() {
