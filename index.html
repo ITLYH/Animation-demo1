@@ -451,6 +451,9 @@
 					$('.submit').attr('disabled', true);
 				}
 			})
+			$('#attach').blur(function () {
+				$("body").css("top", "0px");
+			})
 		});
 		function doSubmit() {
 			//调用
