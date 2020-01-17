@@ -76,10 +76,10 @@
 			.layer-content {
 				position: absolute;
 				left: 50%;
-				bottom: -224px;
+				bottom: 0px;
 				width: 100%;
 				max-width: 640px;
-				height: auto;
+				height: 0px;
 				z-index: 12;
 				-webkit-transform: translateX(-50%);
 				transform: translateX(-50%);
@@ -362,14 +362,17 @@
 				
 				$('.shuru').click(function(e){
 					$('.layer-content').animate({
-						bottom: 0
+						height: '224px'
 					}, 200)
+					// $('.layer-content').show();
 					e.stopPropagation();
 				})
 				$('.wrap').click(function(){
 					$('.layer-content').animate({
-						bottom: '-224px'
+						height: '0px'
 					}, 200)
+					
+					// $('.layer-content').hide();
 				})
 				
 				$('.form_edit .num').click(function(){
