@@ -86,7 +86,8 @@
 			bottom: 0px;
 			width: 100%;
 			max-width: 640px;
-			height: 0px;
+			height: 225px;
+			display: none;
 			z-index: 12;
 			-webkit-transform: translateX(-50%);
 			transform: translateX(-50%);
@@ -363,6 +364,7 @@
 			var c = document.getElementById('layer-content');
 			var ff = c.offsetHeight
 			alert(ff);
+			
 		});
 		$(function () {
 			//                //备注
@@ -391,18 +393,29 @@
 			$('#div').trigger('DOMNodeInserted');
 
 			$('.shuru').click(function (e) {
-				$('.layer-content').animate({
-					height: '224px'
-				}, 200)
-				// $('.layer-content').show();
+				// $('.layer-content').animate({
+				// 	height: '224px'
+				// }, 200)
+
+				$('.layer-content').show();
+
+				var c = document.getElementById('layer-content');
+				var ff = c.offsetHeight
+				alert(ff);
+
 				e.stopPropagation();
 			})
 			$('.wrap').click(function () {
-				$('.layer-content').animate({
-					height: '0px'
-				}, 200)
+				// $('.layer-content').animate({
+				// 	height: '0px'
+				// }, 200)
 
-				// $('.layer-content').hide();
+
+				var c = document.getElementById('layer-content');
+				var ff = c.offsetHeight
+				alert(ff);
+
+				$('.layer-content').hide();
 			})
 
 			$('.form_edit .num').click(function () {
