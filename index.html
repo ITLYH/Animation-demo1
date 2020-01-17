@@ -238,7 +238,7 @@
 			position: absolute;
 			top: 0;
 			right: 0;
-			height: 200%;
+			height: 100%;
 			width: 1px;
 			background: #dfe2ea;
 			display: block;
@@ -332,7 +332,7 @@
 			<input type="button" onclick="doSubmit();return false;" value="提交" class="infor-sub" />
 		</form>
 	</div>
-	<div class="layer-content" id="layer-content">
+	<div class="layer-content">
 		<div class="form_edit clearfix">
 			<div class="num">1</div>
 			<div class="num">2</div>
@@ -360,12 +360,6 @@
 		src="https://a.alipayobjects.com/g/h5-lib/alipayjsapi/3.0.6/alipayjsapi.min.js"></script>
 	<script src="../fres/js/pay/utilPay.js" type="text/javascript"></script>
 	<script>
-		$(document).ready(function () {
-			var c = document.getElementById('layer-content');
-			var ff = c.offsetHeight
-			alert(ff);
-			
-		});
 		$(function () {
 			//                //备注
 			//                $('.remarks').click(function(e){
@@ -397,11 +391,11 @@
 				// 	height: '224px'
 				// }, 200)
 
-				$('.layer-content').show();
+				$('.layer-content').slideDown(300);
 
-				var c = document.getElementById('layer-content');
-				var ff = c.offsetHeight
-				alert(ff);
+				// var c = document.getElementById('layer-content');
+				// var ff = c.offsetHeight
+				// alert(ff);
 
 				e.stopPropagation();
 			})
@@ -411,11 +405,11 @@
 				// }, 200)
 
 
-				var c = document.getElementById('layer-content');
-				var ff = c.offsetHeight
-				alert(ff);
+				// var c = document.getElementById('layer-content');
+				// var ff = c.offsetHeight
+				// alert(ff);
 
-				$('.layer-content').hide();
+				$('.layer-content').slideUp(300);
 			})
 
 			$('.form_edit .num').click(function () {
